@@ -12,6 +12,7 @@ morgan.token('person', (req) => {
 })
 
 app.use(express.json())
+app.use(express.static('build'))
 app.use(morgan(function (tokens, req, res) {
   return [
     tokens.method(req, res),
@@ -43,11 +44,12 @@ app.post('/api/persons', (req, res) => {
     })
   }
 
-  if (persons.map(p => p.name === body.name)) {
-    return res.status(400).json({
-      error: 'name must be unique'
-    })
-  }
+  // Tämä ei toimi
+  // if (persons.map(p => p.name === body.name)) {
+  //   return res.status(400).json({
+  //     error: 'name must be unique'
+  //   })
+  // }
 
   const person = {
     id: generateId(),
